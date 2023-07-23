@@ -19,6 +19,7 @@ def talk(text):
 
 
 def start():
+    command = ""  # Add a default value for the command
     try:
         with sr.Microphone() as source:
             print("listening...")
@@ -26,10 +27,13 @@ def start():
             command = listener.recognize_google(voice)
             command = command.lower()
             if "alex" in command:
-                command = command.replace('alex ','')
-    except:
-        pass
-
+                command = command.replace('alex ', '')
+    except sr.UnknownValueError:
+        # If the speech cannot be recognized, print an error message
+        print("Sorry, I could not understand your speech.")
+    except sr.RequestError:
+        # If there is an issue with the API or the internet connection, print an error message
+        print("Sorry, there was an error connecting to the speech recognition service.")
     return command
 
 #def rerun():
