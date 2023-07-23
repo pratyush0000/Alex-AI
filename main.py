@@ -36,19 +36,25 @@ def start():
         print("Sorry, there was an error connecting to the speech recognition service.")
     return command
 
-#def rerun():
-#    talk("do you need help with anything else? Yes or No")
-#    with sr.Microphone() as source:
-#        sound = listener.listen(source)
-#        reply = listener.recognize_google(sound)
-#        reply = reply.lower()
-#        if 'yes' in reply:
-#            runalex()
-#        elif 'no' in reply:
-#            exit()
-#        else:
-#            talk("please repeat")
-#            rerun()
+def rerun():
+    print("do you need help with anything else? Yes or No")
+    talk("do you need help with anything else? Yes or No")
+    with sr.Microphone() as source:
+        print("listening...")
+        sound = listener.listen(source)
+        reply = listener.recognize_google(sound)
+        reply = reply.lower()
+        if 'yes' in reply:
+            print("Okay. How may I help you?")
+            talk("Okay. How may I help you?")
+            runalex()
+        elif 'no' in reply:
+            print("Ok thank you. Bye.")
+            talk("OK thank you. Bye.")
+            exit()
+        else:
+            talk("please repeat")
+            rerun()
 
 
 def runalex():
@@ -74,11 +80,10 @@ def runalex():
     else:
         print("Sorry, I did not get you")
         talk("sorry i did not get you")
-#    rerun()
+    rerun()
 
 
 
 print("I am Alex A.I. How may I help you today?")
 talk("I am Alex A.I. How may I help you today?")
-while True:
-    runalex()
+runalex()
